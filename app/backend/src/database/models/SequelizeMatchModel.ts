@@ -3,6 +3,7 @@ import {
   Model,
   InferAttributes,
   InferCreationAttributes,
+  CreationOptional,
 } from 'sequelize';
 import db from '.';
 
@@ -13,7 +14,7 @@ InferCreationAttributes<SequelizeMatchModel>> {
   declare awayTeamId: number;
   declare awayTeamGoals: number;
   declare inProgress: boolean;
-  declare id: number;
+  declare id: CreationOptional<number>;
 }
 
 SequelizeMatchModel.init({
