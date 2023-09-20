@@ -6,13 +6,12 @@ import chaiHttp = require('chai-http');
 
 import { app } from '../app';
 import SequelizeUserModel from '../database/models/SequelizeUserModel';
-import { Response } from 'superagent';
 
 
 chai.use(chaiHttp);
 const { expect } = chai;
 
-describe('Integração - Users - FindAll', () => {
+describe('Integração - Users - FindAll', function() {
   before(async () => {
     sinon
       .stub(SequelizeUserModel, "findAll")

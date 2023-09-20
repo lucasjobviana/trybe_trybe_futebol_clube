@@ -6,13 +6,11 @@ import chaiHttp = require('chai-http');
 
 import { app } from '../app';
 import SequelizeTeamModel from '../database/models/SequelizeTeamModel';
-import { Response } from 'superagent';
-
 
 chai.use(chaiHttp);
 const { expect } = chai;
 
-describe('Integração - Teams - FindAll', () => {
+describe('Integração - Teams - FindAll', function() {
   before(async () => {
     sinon
       .stub(SequelizeTeamModel, "findAll")
@@ -25,7 +23,7 @@ describe('Integração - Teams - FindAll', () => {
   })
 
   it('Verifica se uma requisição para a rota /teams retorna um objeto com status 200 e body do tipo SequelizeTeamModel.', async function() {
-    const { status, body } = await chai.request(app).get('/matches');
+    const { status, body } = await chai.request(app).get('/teams');
     expect(status).to.equal(200);
     expect(body).to.deep.equal(teams);
   });

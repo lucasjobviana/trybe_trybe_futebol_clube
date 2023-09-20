@@ -7,8 +7,6 @@ import chaiHttp = require('chai-http');
 import { app } from '../app';
 import SequelizeMatchModel from '../database/models/SequelizeMatchModel';
 
-import { Response } from 'superagent';
-
 chai.use(chaiHttp);
 
 const { expect } = chai;
