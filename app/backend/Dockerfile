@@ -1,7 +1,7 @@
 # Usar a imagem node:16.14-alpine como base
-FROM node:16.14
-RUN apt update
-RUN apt install lsof
+FROM node:16.14-alpine
+# RUN apt update
+# RUN apt install lsof
 # Mudar para o diretório de trabalho /app-backend
 WORKDIR /app-backend
 # Copiar os package.json, package-lock.json e packages.npm para o container
