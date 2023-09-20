@@ -13,6 +13,7 @@ InferCreationAttributes<SequelizeMatchModel>> {
   declare awayTeamId: number;
   declare awayTeamGoals: number;
   declare inProgress: boolean;
+  declare id: number;
 }
 
 SequelizeMatchModel.init({
@@ -33,6 +34,7 @@ SequelizeMatchModel.init({
       model: 'teams', key: 'id',
     },
   },
+  id: { type: DataTypes.INTEGER, allowNull: false, primaryKey: true, autoIncrement: true },
   awayTeamGoals: { type: DataTypes.INTEGER, allowNull: false },
   inProgress: { type: DataTypes.BOOLEAN, allowNull: false },
 }, {

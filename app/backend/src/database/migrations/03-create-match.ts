@@ -4,17 +4,15 @@ import { IMatch } from '../../Interfaces/IMatch';
 
 const up = (queryInterface: QueryInterface) => {
     return queryInterface.createTable<Model<IMatch>>('matches',{
-      homeTeamId: 
-      { 
+      homeTeamId: {
         type: DataTypes.INTEGER, allowNull: false, field: 'home_team_id',
         references: {
           model: 'teams',
           key: 'id',
-        }, 
+        },
       },
       homeTeamGoals: { type: DataTypes.INTEGER, allowNull: false, field: 'home_team_goals' },
-      awayTeamId: 
-      { 
+      awayTeamId: {
         type: DataTypes.INTEGER, allowNull: false, field: 'away_team_id',
         references: {
           model: 'teams',
@@ -23,6 +21,7 @@ const up = (queryInterface: QueryInterface) => {
       },
       awayTeamGoals: { type: DataTypes.INTEGER, allowNull: false, field: 'away_team_goals' },
       inProgress: { type: DataTypes.BOOLEAN, allowNull: false, field: 'in_progress' },
+      id: { type: DataTypes.INTEGER, allowNull: false, primaryKey: true, autoIncrement: true },
     });
 
 }
