@@ -13,7 +13,7 @@ InferCreationAttributes<SequelizeUserModel>> {
 
   declare username: string;
 
-  declare password: number;
+  declare password: string;
 
   declare role: string;
 

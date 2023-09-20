@@ -1,6 +1,6 @@
 import { Model, DataTypes, QueryInterface } from 'sequelize';
 
-import { IUser } from '../../Interfaces/IUser';
+import { IUser } from '../../interfaces/IUser';
 
 const up = (queryInterface: QueryInterface) => {
     return queryInterface.createTable<Model<IUser>>('users',{

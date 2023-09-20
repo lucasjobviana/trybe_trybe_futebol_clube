@@ -1,6 +1,6 @@
 import { Model, DataTypes, QueryInterface,  } from 'sequelize';
 
-import { IMatch } from '../../Interfaces/IMatch';
+import { IMatch } from '../../interfaces/IMatch';
 
 const up = (queryInterface: QueryInterface) => {
     return queryInterface.createTable<Model<IMatch>>('matches',{
