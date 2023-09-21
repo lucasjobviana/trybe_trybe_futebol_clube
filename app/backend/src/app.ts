@@ -2,12 +2,16 @@ import * as express from 'express';
 import userRouter from './routes/user.routes';
 import teamRouter from './routes/team.routes';
 import matchRouter from './routes/match.routes';
+import * as cors from 'cors';
+// const cors = require('cors');
+
 
 class App {
   public app: express.Express;
 
   constructor() {
     this.app = express();
+    this.app.use(cors());
     this.app.use(express.json());
     this.routes();
 
@@ -25,8 +29,11 @@ class App {
       next();
     };
 
-    this.app.use(express.json());
+     
     this.app.use(accessControl);
+    
+    
+    
   }
 
   private routes(): void {

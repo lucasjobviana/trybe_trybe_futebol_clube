@@ -4,6 +4,14 @@ import { ITeamModel } from '../interfaces/ITeamModel';
 
 export default class TeamModel implements ITeamModel {
   private model = SequelizeTeamModel;
+  
+  async findById(id: number): Promise<ITeams> {
+    const dbData = await this.model.findByPk(id);
+    if (!dbData) {
+      throw new Error('Team not found');
+    }
+    return { id: dbData.id, teamName: dbData.teamName };
+  }
 
   async findAll(): Promise<ITeams[]> {
     const dbData = await this.model.findAll();
