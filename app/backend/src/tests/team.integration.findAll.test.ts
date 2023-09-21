@@ -10,7 +10,7 @@ import SequelizeTeamModel from '../database/models/SequelizeTeamModel';
 chai.use(chaiHttp);
 const { expect } = chai;
 
-describe('Integração - Teams - FindAll', function() {
+describe('Integração - Teams - GET', function() {
   before(async () => {
     sinon
       .stub(SequelizeTeamModel, "findAll")

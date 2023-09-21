@@ -11,7 +11,7 @@ import SequelizeUserModel from '../database/models/SequelizeUserModel';
 chai.use(chaiHttp);
 const { expect } = chai;
 
-describe('Integração - Users - FindAll', function() {
+describe('Integração - Users - GET/:id', function() {
   before(async () => {
     sinon
       .stub(SequelizeUserModel, "findAll")

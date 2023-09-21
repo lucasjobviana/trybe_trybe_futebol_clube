@@ -12,7 +12,7 @@ import { Response } from 'superagent';
 chai.use(chaiHttp);
 const { expect } = chai; 
 
-describe('Integração - Teams - FindByPk', () => {
+describe('Integração - Teams - GET/:id', () => {
   before(async () => {
     sinon
       .stub(SequelizeTeamModel, "findByPk")
