@@ -1,6 +1,6 @@
 import * as sinon from 'sinon';
 import * as chai from 'chai';
-import { user  } from './mocks/user.mock';
+import { user,userWithCryptPassword  } from './mocks/user.mock';
 // @ts-ignore
 import chaiHttp = require('chai-http');
 
@@ -10,11 +10,11 @@ import SequelizeUserModel from '../database/models/SequelizeUserModel';
 chai.use(chaiHttp);
 const { expect } = chai; 
 
-describe('Integração - Login - POST', () => {
+describely('Integração - Login - POST', () => {
   before(async () => {
     sinon
       .stub(SequelizeUserModel, "findOne")
-      .resolves( user as SequelizeUserModel );
+      .resolves( {dataValues:userWithCryptPassword} as SequelizeUserModel);
     
   });
 
@@ -30,7 +30,7 @@ describe('Integração - Login - POST', () => {
 
   it('Retorna um objeto com status 401 e uma propriedade message no corpo da resposta.', async function() {
     const { status, body } = await chai.request(app).post('/login').send({ email:null, password:null});
-    expect(status).to.equal(404);
+    expect(status).to.equal(400);
     expect(body).to.have.property('message');
   });
  
