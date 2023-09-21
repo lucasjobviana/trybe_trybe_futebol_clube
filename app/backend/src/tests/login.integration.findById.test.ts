@@ -10,7 +10,7 @@ import SequelizeUserModel from '../database/models/SequelizeUserModel';
 chai.use(chaiHttp);
 const { expect } = chai; 
 
-describely('Integração - Login - POST', () => {
+describe('Integração - Login - POST', () => {
   before(async () => {
     sinon
       .stub(SequelizeUserModel, "findOne")
