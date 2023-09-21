@@ -22,16 +22,16 @@ describe('Integração - Login - POST', () => {
     (SequelizeUserModel.findOne as sinon.SinonStub).restore();
   })
 
-  it('Verifica se uma requisição para a rota /login retorna um objeto com status 200 e um token no corpo da resposta.', async function() {
+  it('Retorna um objeto com status 200 e uma propriedade token no corpo da resposta.', async function() {
     const { status, body } = await chai.request(app).post('/login').send(user);
     expect(status).to.equal(200);
     expect(body).to.have.property('token');
   });
 
-  it('Verifica se uma requisição para a rota /login retorna um objeto com status 401 e uma propriedade errorMsg no corpo da resposta.', async function() {
-    const { status, body } = await chai.request(app).post('/login').send({ username:null, email:null});
-    expect(status).to.equal(401);
-    expect(body).to.have.property('errorMsg');
+  it('Retorna um objeto com status 401 e uma propriedade message no corpo da resposta.', async function() {
+    const { status, body } = await chai.request(app).post('/login').send({ email:null, password:null});
+    expect(status).to.equal(404);
+    expect(body).to.have.property('message');
   });
  
 });

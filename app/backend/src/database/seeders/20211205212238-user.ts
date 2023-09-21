@@ -1,6 +1,6 @@
 import { QueryInterface } from 'sequelize';
 
-export default {
+export default { 
   up: async (queryInterface: QueryInterface) => {
     await queryInterface.bulkInsert('users', [
       {

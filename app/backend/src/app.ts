@@ -1,8 +1,12 @@
 import * as express from 'express';
+import { Request, Response, NextFunction } from 'express';
+import 'express-async-errors';
 import * as cors from 'cors';
 import userRouter from './routes/user.routes';
 import teamRouter from './routes/team.routes';
 import matchRouter from './routes/match.routes';
+import loginRouter from './routes/login.routes';
+import AppResponseError from './AppResponseError';
 
 class App {
   public app: express.Express;
@@ -17,6 +21,14 @@ class App {
 
     // Não remover essa rota
     this.app.get('/', (req, res) => res.json({ ok: true }));
+
+    this.app.use((err:AppResponseError | Error, _req:Request, res: Response, _n:NextFunction) => {
+      if (err instanceof AppResponseError) {
+        return res.status(err.statusCode).json({ message: err.message });
+      }
+
+      return res.status(500).json({ message: 'Erro não tratado.', messageError: err.message });
+    });
   }
 
   private config():void {
@@ -34,6 +46,7 @@ class App {
     this.app.use('/users', userRouter);
     this.app.use('/teams', teamRouter);
     this.app.use('/matches', matchRouter);
+    this.app.use('/login', loginRouter);
   }
 
   public start(PORT: string | number): void {
