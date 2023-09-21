@@ -3,7 +3,6 @@ class AppResponseError extends Error {
 
   private error400 = (errorMessage:string):number | undefined => {
     switch (errorMessage) {
-      case 'Invalid email or password':
       case 'All fields must be filled':
         return 400;
       default:
@@ -12,7 +11,7 @@ class AppResponseError extends Error {
 
   private error401 = (errorMessage:string):number | undefined => {
     switch (errorMessage) {
-      case 'In':
+      case 'Invalid email or password':
         return 401;
       default:
     }
