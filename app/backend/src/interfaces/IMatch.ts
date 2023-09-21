@@ -1,8 +1,8 @@
 export type IMatch = {
   id: number,
   homeTeamId: number,
-  homeTeamGoals: string,
+  homeTeamGoals: number,
   awayTeamId: number,
-  awayTeamGoals: string,
+  awayTeamGoals: number,
   inProgress: boolean,
 };
