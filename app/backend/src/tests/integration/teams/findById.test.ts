@@ -10,24 +10,24 @@ import { Response } from 'superagent';
 
 
 chai.use(chaiHttp);
-const { expect } = chai;
+const { expect } = chai; 
 
-describe('Integração - Teams - FindAll', () => {
+describe('Integração - Teams - FindByPk', () => {
   before(async () => {
     sinon
-      .stub(SequelizeTeamModel, "findAll")
-      .resolves( teams as SequelizeTeamModel[] );
+      .stub(SequelizeTeamModel, "findByPk")
+      .resolves( team as SequelizeTeamModel );
     
   });
 
   after(()=>{
-    (SequelizeTeamModel.findAll as sinon.SinonStub).restore();
+    (SequelizeTeamModel.findByPk as sinon.SinonStub).restore();
   })
 
-  it('Verifica se uma requisição para a rota /teams retorna um objeto com status 200 e body do tipo SequelizeTeamModel[].', async function() {
+  it('Verifica se uma requisição para a rota /teams retorna um objeto com status 200 e body do tipo SequelizeTeamModel.', async function() {
     const { status, body } = await chai.request(app).get('/matches');
     expect(status).to.equal(200);
-    expect(body).to.deep.equal(teams);
+    expect(body).to.deep.equal(team);
   });
  
 });

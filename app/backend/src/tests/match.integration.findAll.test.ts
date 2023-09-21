@@ -11,7 +11,7 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('Integração - FindAll', () => {
+describe('Integração - Matches - FindAll', () => {
   let chaiHttpResponse: Response;
 
   before(async () => {
