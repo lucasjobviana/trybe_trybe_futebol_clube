@@ -8,7 +8,17 @@ export default class MatchService {
   ) { }
 
   public async getAll(): Promise<IMatch[]> {
-    const allMatches = await this.matchModel.findAll();
+    const allMatches = await this.matchModel.findAll({});
+    return allMatches;
+  }
+
+  public async getAllInProgress(): Promise<IMatch[]> {
+    const allMatches = await this.matchModel.findAllInProgress();
+    return allMatches;
+  }
+
+  public async getAllNotInProgress(): Promise<IMatch[]> {
+    const allMatches = await this.matchModel.findAllNotInProgress();
     return allMatches;
   }
 }
