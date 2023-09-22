@@ -7,12 +7,29 @@ export default class MatchController {
     private matchService = new MatchService(),
   ) { }
 
-  public async update(req: Request, res: Response) {
+  // public async update(req: Request, res: Response) {
+  //   const { id: stringId } = req.params;
+  //   const id = Number(stringId);
+  //   const { homeTeamGoals, awayTeamGoals, inProgress = false } = req.body;
+  //   await this.matchService.update({
+  //     id, homeTeamGoals, awayTeamGoals, inProgress } as IMatch);
+  //   res.status(200).json({ message: 'Finished' });
+  // }
+
+  public async updateProgress(req: Request, res: Response) {
     const { id: stringId } = req.params;
     const id = Number(stringId);
-    const { homeTeamGoals, awayTeamGoals, inProgress } = req.body;
-    await this.matchService.update({
-      id, homeTeamGoals, awayTeamGoals, inProgress } as IMatch);
+    // const { inProgress } = req.body;
+    await this.matchService.updateProgress({
+      id, inProgress: false } as IMatch);
+    res.status(200).json({ message: 'Finished' });
+  }
+
+  public async updateGoals(req: Request, res: Response) {
+    const { id: stringId } = req.params;
+    const id = Number(stringId);
+    const { homeTeamGoals, awayTeamGoals } = req.body;
+    await this.matchService.updateGoals({ id, homeTeamGoals, awayTeamGoals } as IMatch);
     res.status(200).json({ message: 'Finished' });
   }
 

@@ -7,9 +7,15 @@ export default class MatchService {
     private matchModel: IMatchModel = new MatchModel(),
   ) { }
 
-  public async update(match: IMatch): Promise<IMatch> {
+  public async updateProgress(match: IMatch): Promise<IMatch> {
+    const { id, inProgress } = match;
+    const hasUpdate = await this.matchModel.updateProgress(id, inProgress);
+    return hasUpdate;
+  }
+
+  public async updateGoals(match: IMatch): Promise<IMatch> {
     const { id, homeTeamGoals, awayTeamGoals } = match;
-    const hasUpdate = await this.matchModel.update(id, homeTeamGoals, awayTeamGoals);
+    const hasUpdate = await this.matchModel.updateGoals(id, homeTeamGoals, awayTeamGoals);
     return hasUpdate;
   }
 

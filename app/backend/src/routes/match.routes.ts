@@ -13,7 +13,13 @@ router.get(
 router.patch(
   '/:id/finish',
   (req: Request, res: Response, next:NextFunction) => checkUserAuthentication(req, res, next),
-  (req: Request, res: Response) => matchController.update(req, res),
+  (req: Request, res: Response) => matchController.updateProgress(req, res),
+);
+
+router.patch(
+  '/:id',
+  (req: Request, res: Response, next:NextFunction) => checkUserAuthentication(req, res, next),
+  (req: Request, res: Response) => matchController.updateGoals(req, res),
 );
 
 export default router;

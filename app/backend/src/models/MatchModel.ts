@@ -7,14 +7,23 @@ import { IMatchModel } from '../interfaces/IMatchModel';
 export default class MatchModel implements IMatchModel {
   private model = SequelizeMatchModel;
 
-  public async update(id: number, scoreTeamA: number, scoreTeamB: number): Promise<IMatch> {
+  public async updateProgress(id: number, inProgress:boolean): Promise<IMatch> {
     const match = await this.model.findByPk(id);
     if (!match) {
       throw new Error('Match not found');
     }
-    const matchUpdated = await match.update({ homeTeamGoals: scoreTeamA,
-      awayTeamGoals: scoreTeamB,
-      inProgress: false });
+    const matchUpdated = await match.update({ inProgress }, { where: { id } });
+    return matchUpdated;
+  }
+
+  public async updateGoals(id: number, homeTeamGoals: number, awayTeamGoals: number)
+    : Promise<IMatch> {
+    const match = await this.model.findByPk(id);
+    if (!match) {
+      throw new Error('Match not found');
+    }
+    const matchUpdated = await match.update({ homeTeamGoals,
+      awayTeamGoals }, { where: { id } });
     return matchUpdated;
   }
 
