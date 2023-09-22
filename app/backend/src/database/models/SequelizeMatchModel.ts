@@ -38,7 +38,7 @@ SequelizeMatchModel.init({
   },
   id: { type: DataTypes.INTEGER, allowNull: false, primaryKey: true, autoIncrement: true },
   awayTeamGoals: { type: DataTypes.INTEGER, allowNull: false },
-  inProgress: { type: DataTypes.BOOLEAN, allowNull: false },
+  inProgress: { type: DataTypes.BOOLEAN, allowNull: true, defaultValue: true },
 }, {
   sequelize: db,
   modelName: 'matches',

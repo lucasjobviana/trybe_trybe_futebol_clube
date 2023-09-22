@@ -16,6 +16,13 @@ export default class MatchController {
   //   res.status(200).json({ message: 'Finished' });
   // }
 
+  public async create(req: Request, res: Response) {
+    const { homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals } = req.body;
+    const match = await this.matchService.create({
+      homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals } as IMatch);
+    res.status(201).json(match);
+  }
+
   public async updateProgress(req: Request, res: Response) {
     const { id: stringId } = req.params;
     const id = Number(stringId);

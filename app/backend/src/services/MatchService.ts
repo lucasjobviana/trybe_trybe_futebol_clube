@@ -7,6 +7,11 @@ export default class MatchService {
     private matchModel: IMatchModel = new MatchModel(),
   ) { }
 
+  public async create(match: IMatch): Promise<IMatch> {
+    const createdMatch = await this.matchModel.create(match);
+    return createdMatch;
+  }
+
   public async updateProgress(match: IMatch): Promise<IMatch> {
     const { id, inProgress } = match;
     const hasUpdate = await this.matchModel.updateProgress(id, inProgress);

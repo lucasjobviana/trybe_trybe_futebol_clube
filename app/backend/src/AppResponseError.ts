@@ -22,6 +22,7 @@ class AppResponseError extends Error {
   private error404 = (errorMessage:string):number | undefined => {
     switch (errorMessage) {
       case 'Bad Request':
+      case 'There is no team with such id!':
         return 404;
       default:
     }
@@ -30,6 +31,7 @@ class AppResponseError extends Error {
   private error422 = (errorMessage:string):number | undefined => {
     switch (errorMessage) {
       case '"default" is not allowed':
+      case 'It is not possible to create a match with two equal teams':
         return 422;
       default:
     }

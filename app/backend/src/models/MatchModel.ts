@@ -7,6 +7,11 @@ import { IMatchModel } from '../interfaces/IMatchModel';
 export default class MatchModel implements IMatchModel {
   private model = SequelizeMatchModel;
 
+  public async create(match: IMatch): Promise<IMatch> {
+    const createdMatch = await this.model.create(match);
+    return createdMatch;
+  }
+
   public async updateProgress(id: number, inProgress:boolean): Promise<IMatch> {
     const match = await this.model.findByPk(id);
     if (!match) {

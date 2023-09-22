@@ -20,7 +20,7 @@ const up = (queryInterface: QueryInterface) => {
         },
       },
       awayTeamGoals: { type: DataTypes.INTEGER, allowNull: false, field: 'away_team_goals' },
-      inProgress: { type: DataTypes.BOOLEAN, allowNull: false, field: 'in_progress' },
+      inProgress: { type: DataTypes.BOOLEAN, allowNull: true, field: 'in_progress',defaultValue: true },
       id: { type: DataTypes.INTEGER, allowNull: false, primaryKey: true, autoIncrement: true },
     });
 

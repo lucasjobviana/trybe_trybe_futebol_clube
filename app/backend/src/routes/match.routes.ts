@@ -22,4 +22,10 @@ router.patch(
   (req: Request, res: Response) => matchController.updateGoals(req, res),
 );
 
+router.post(
+  '/',
+  (req: Request, res: Response, next:NextFunction) => checkUserAuthentication(req, res, next),
+  (req: Request, res: Response) => matchController.create(req, res),
+);
+
 export default router;
