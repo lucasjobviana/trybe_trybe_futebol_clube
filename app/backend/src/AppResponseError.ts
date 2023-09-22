@@ -12,6 +12,8 @@ class AppResponseError extends Error {
   private error401 = (errorMessage:string):number | undefined => {
     switch (errorMessage) {
       case 'Invalid email or password':
+      case 'Token not found':
+      case 'Token must be a valid token':
         return 401;
       default:
     }

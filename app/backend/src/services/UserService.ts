@@ -20,14 +20,13 @@ export default class UserService {
     return allUsers;
   }
 
-  public static validateLoginInput(userToLogin: TUserToLogin) {
+  public static validateLoginInput(userToLogin: TUserToLogin):void {
     loginInputValidator(userToLogin);
   }
 
   public async login(userToLogin: TUserToLogin): Promise<Token> {
-    console.log('Este é o userToLogin: ', userToLogin);
     UserService.validateLoginInput(userToLogin);
-    console.log('não foi lançado erro');
+
     const user = await this.userModel.login(userToLogin.email);
 
     if (!user

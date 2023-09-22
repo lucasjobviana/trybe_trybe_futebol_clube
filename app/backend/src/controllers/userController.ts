@@ -2,15 +2,14 @@ import { Request, Response } from 'express';
 import AppResponseError from '../AppResponseError';
 import UserService from '../services/UserService';
 
-export default class BookController {
+export default class UserController {
   constructor(
+    private _loginProps = ['email', 'password'],
     private userService = new UserService(),
   ) { }
 
-  private static loginProps = ['email', 'password'];
-
-  private static validateLoginInput(body: any) {
-    if (!BookController.loginProps.every((prop) => body[prop])) {
+  public static validateLoginProps(body: any, loginProps:string[]):void {
+    if (!loginProps.every((prop) => body[prop])) {
       throw new AppResponseError('All fields must be filled');
     }
   }
@@ -20,11 +19,18 @@ export default class BookController {
     res.status(200).json(users);
   }
 
+  public static getRoleByUserToken(req: Request, res: Response) {
+    res.status(200).json({ role: req.body.user.data.role });
+  }
+
   public async login(req: Request, res: Response) {
     const { email, password } = req.body;
-    BookController.validateLoginInput(req.body);
-
+    UserController.validateLoginProps(req.body, this._loginProps);
     const user = await this.userService.login({ email, password });
     res.status(200).json(user);
+  }
+
+  public get loginProps(): string[] {
+    return this._loginProps;
   }
 }
