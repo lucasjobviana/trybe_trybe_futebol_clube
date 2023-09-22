@@ -29,8 +29,4 @@ export default class UserController {
     const user = await this.userService.login({ email, password });
     res.status(200).json(user);
   }
-
-  public get loginProps(): string[] {
-    return this._loginProps;
-  }
 }

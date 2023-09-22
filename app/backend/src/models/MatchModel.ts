@@ -1,10 +1,9 @@
+import { TSequelizeMatchWithTeams } from '../interfaces/types/TSequelizeMatchWithTeams';
 import SequelizeTeamModel from '../database/models/SequelizeTeamModel';
 import SequelizeMatchModel from '../database/models/SequelizeMatchModel';
 import { IMatch } from '../interfaces/IMatch';
 import { IMatchModel } from '../interfaces/IMatchModel';
 
-type SequelizeMatchWithTeam = IMatch & { homeTeam: SequelizeTeamModel,
-  awayTeam: SequelizeTeamModel };
 export default class MatchModel implements IMatchModel {
   private model = SequelizeMatchModel;
 
@@ -14,7 +13,7 @@ export default class MatchModel implements IMatchModel {
         { model: SequelizeTeamModel, as: 'homeTeam' },
         { model: SequelizeTeamModel, as: 'awayTeam' },
       ],
-    }) as unknown as SequelizeMatchWithTeam[];
+    }) as unknown as TSequelizeMatchWithTeams [];
     return dbData1.map(({ id, homeTeamId, homeTeamGoals, awayTeamId, awayTeamGoals,
       inProgress, homeTeam, awayTeam }) => (
       { id,

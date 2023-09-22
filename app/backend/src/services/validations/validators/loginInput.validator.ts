@@ -1,4 +1,4 @@
-import { TUserToLogin } from '../../../interfaces/types/IUserToLogin';
+import { TUserToLogin } from '../../../interfaces/types/TUserToLogin';
 import LoginSchema from '../schemas/loginInput.schema';
 import AppResponseError from '../../../AppResponseError';
 

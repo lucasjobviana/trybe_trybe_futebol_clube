@@ -1,11 +1,12 @@
 import * as sinon from 'sinon';
 import * as chai from 'chai';
-import { match, matches  } from './mocks/match.mock';
 // @ts-ignore
 import chaiHttp = require('chai-http');
 
 import { app } from '../app';
+import { matchesWithTeams, matchesWithTeamsSequelize  } from './mocks/match.mock';
 import SequelizeMatchModel from '../database/models/SequelizeMatchModel';
+
 
 chai.use(chaiHttp);
 
@@ -17,7 +18,7 @@ describe('Integração - Matches - GET', () => {
   before(async () => {
     sinon
       .stub(SequelizeMatchModel, "findAll")
-      .resolves( matches as SequelizeMatchModel[] );
+      .resolves( matchesWithTeamsSequelize as any);
     
   });
 
@@ -25,10 +26,10 @@ describe('Integração - Matches - GET', () => {
     (SequelizeMatchModel.findAll as sinon.SinonStub).restore();
   })
 
-  it('Verifica se uma requisição para a rota /matches retorna um objeto com status 200 e body do tipo SequelizeMatchModel.', async function() {
+  it('Retorna um objeto com status 200 e um objeto do tipo SequelizeMatchModel.', async function() {
     const { status, body } = await chai.request(app).get('/matches');
     expect(status).to.equal(200);
-    expect(body).to.deep.equal(matches);
+    expect(body).to.deep.equal(matchesWithTeams);
   });
  
 });

@@ -1,5 +1,5 @@
 import * as jwt from 'jsonwebtoken';
-import { TUserToLogin } from './interfaces/types/IUserToLogin';
+import { TUserToLogin } from './interfaces/types/TUserToLogin';
 
 const getNewToken = (user: TUserToLogin): string => {
   const token = jwt.sign({ data: user }, 'calafjksaoiekalladioadj', {

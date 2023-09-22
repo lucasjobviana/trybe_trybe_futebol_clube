@@ -1,5 +1,5 @@
 import * as bcrypt from 'bcryptjs';
-import { TUserToLogin } from '../interfaces/types/IUserToLogin';
+import { TUserToLogin } from '../interfaces/types/TUserToLogin';
 import AppResponseError from '../AppResponseError';
 import { IUser } from '../interfaces/IUser';
 import UserModel from '../models/UserModel';
