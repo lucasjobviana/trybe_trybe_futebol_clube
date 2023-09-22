@@ -1,13 +1,27 @@
+import AppResponseError from '../AppResponseError';
 import { IMatch } from '../interfaces/IMatch';
 import MatchModel from '../models/MatchModel';
 import { IMatchModel } from '../interfaces/IMatchModel';
+import { TMatchToCreate } from '../interfaces/types/TMatchToCreate';
 
 export default class MatchService {
   constructor(
     private matchModel: IMatchModel = new MatchModel(),
   ) { }
 
+  public static validateCreateInput(userToLogin: TMatchToCreate):void {
+    if (userToLogin.awayTeamId === userToLogin.homeTeamId) {
+      throw new AppResponseError('It is not possible to create a match with two equal teams');
+    }
+  }
+
   public async create(match: IMatch): Promise<IMatch> {
+    MatchService.validateCreateInput(match);
+    const teams = await this.matchModel.findAll(
+      { where: { homeTeamId: match.homeTeamId, awayTeamId: match.awayTeamId } },
+    );
+    if (teams.length !== 2) throw new AppResponseError('There is no team with such id!');
+
     const createdMatch = await this.matchModel.create(match);
     return createdMatch;
   }

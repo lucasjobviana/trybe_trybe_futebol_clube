@@ -1,5 +1,5 @@
 import { Request, Router, Response, NextFunction } from 'express';
-import MatchController from '../controllers/matchController';
+import MatchController from '../controllers/MatchController';
 import checkUserAuthentication from '../middlewares/checkUserAuthentication';
 
 const matchController = new MatchController();

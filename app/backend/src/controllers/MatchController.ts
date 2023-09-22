@@ -1,9 +1,11 @@
 import { Request, Response } from 'express';
 import { IMatch } from '../interfaces/IMatch';
 import MatchService from '../services/MatchService';
+import AppResponseError from '../AppResponseError';
 
 export default class MatchController {
   constructor(
+    private _createProps = ['homeTeamId', 'homeTeamGoals', 'awayTeamId', 'awayTeamGoals'],
     private matchService = new MatchService(),
   ) { }
 
@@ -16,7 +18,14 @@ export default class MatchController {
   //   res.status(200).json({ message: 'Finished' });
   // }
 
+  public static validateCreateProps(body: any, matchProps:string[]):void {
+    if (!matchProps.every((prop) => body[prop])) {
+      throw new AppResponseError('All fields must be filled');
+    }
+  }
+
   public async create(req: Request, res: Response) {
+    MatchController.validateCreateProps(req.body, this._createProps);
     const { homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals } = req.body;
     const match = await this.matchService.create({
       homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals } as IMatch);
