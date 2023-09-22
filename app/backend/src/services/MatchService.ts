@@ -7,6 +7,12 @@ export default class MatchService {
     private matchModel: IMatchModel = new MatchModel(),
   ) { }
 
+  public async update(match: IMatch): Promise<IMatch> {
+    const { id, homeTeamGoals, awayTeamGoals } = match;
+    const hasUpdate = await this.matchModel.update(id, homeTeamGoals, awayTeamGoals);
+    return hasUpdate;
+  }
+
   public async getAll(): Promise<IMatch[]> {
     const allMatches = await this.matchModel.findAll({});
     return allMatches;
