@@ -3,10 +3,13 @@ import { IMatch } from '../interfaces/IMatch';
 import MatchModel from '../models/MatchModel';
 import { IMatchModel } from '../interfaces/IMatchModel';
 import { TMatchToCreate } from '../interfaces/types/TMatchToCreate';
+import { ITeamModel } from '../interfaces/ITeamModel';
+import TeamModel from '../models/TeamModel';
 
 export default class MatchService {
   constructor(
     private matchModel: IMatchModel = new MatchModel(),
+    private teamModel: ITeamModel = new TeamModel(),
   ) { }
 
   public static validateCreateInput(userToLogin: TMatchToCreate):void {
@@ -17,9 +20,8 @@ export default class MatchService {
 
   public async create(match: IMatch): Promise<IMatch> {
     MatchService.validateCreateInput(match);
-    const teams = await this.matchModel.findAll(
-      { where: { homeTeamId: match.homeTeamId, awayTeamId: match.awayTeamId } },
-    );
+
+    const teams = await this.teamModel.findTwoTeamsById(match.homeTeamId, match.awayTeamId);
     if (teams.length !== 2) throw new AppResponseError('There is no team with such id!');
 
     const createdMatch = await this.matchModel.create(match);

@@ -13,7 +13,7 @@ export default class TeamService {
   }
 
   public async getAll(): Promise<ITeams[]> {
-    const allTeams = await this.teamModel.findAll();
+    const allTeams = await this.teamModel.findAll({});
     return allTeams;
   }
 }

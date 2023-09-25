@@ -7,6 +7,10 @@ export default class MatchController {
   constructor(
     private _createProps = ['homeTeamId', 'homeTeamGoals', 'awayTeamId', 'awayTeamGoals'],
     private matchService = new MatchService(),
+    /* "homeTeamGoals":0,
+   "awayTeamGoals":8,
+   "awayTeamId":1,
+   "homeTeamId":2 */
   ) { }
 
   // public async update(req: Request, res: Response) {
@@ -19,7 +23,7 @@ export default class MatchController {
   // }
 
   public static validateCreateProps(body: any, matchProps:string[]):void {
-    if (!matchProps.every((prop) => body[prop])) {
+    if (!matchProps.every((prop) => body[prop] !== undefined)) {
       throw new AppResponseError('All fields must be filled');
     }
   }
@@ -29,6 +33,7 @@ export default class MatchController {
     const { homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals } = req.body;
     const match = await this.matchService.create({
       homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals } as IMatch);
+    console.log('controler retornando 201 :'); console.log(match);
     res.status(201).json(match);
   }
 

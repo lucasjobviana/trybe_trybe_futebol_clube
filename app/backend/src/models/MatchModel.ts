@@ -32,9 +32,9 @@ export default class MatchModel implements IMatchModel {
     return matchUpdated;
   }
 
-  async findAll(opcaoWhere = {}): Promise<IMatch[]> {
+  async findAll(whereOptions = {}): Promise<IMatch[]> {
     const dbData1 = await this.model.findAll({ //      where: { inProgress: isInProgress },
-      ...opcaoWhere,
+      ...whereOptions,
       include: [
         { model: SequelizeTeamModel, as: 'homeTeam' },
         { model: SequelizeTeamModel, as: 'awayTeam' },
@@ -63,8 +63,3 @@ export default class MatchModel implements IMatchModel {
     return matchInProgress;
   }
 }
-
-// return dbData.map(({ id, homeTeamId, homeTeamGoals, awayTeamId, awayTeamGoals,
-//   inProgress }) => (
-//   { id, homeTeamId, homeTeamGoals, awayTeamId, awayTeamGoals, inProgress }
-// ));
