@@ -69,6 +69,7 @@ const matchesFalseTEAM_Sequelize = [matchFalseTEAM_Sequelize];
 //TEAM: Includes homeTeam and awayTeam objects
 //_Sequelize: Objects returned by Sequelize   
   export {
+    matchTrue,
     matchesBothTEAM,
     matchesBothTEAM_Sequelize,
     matchesTrueTEAM,

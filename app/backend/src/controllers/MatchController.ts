@@ -7,20 +7,7 @@ export default class MatchController {
   constructor(
     private _createProps = ['homeTeamId', 'homeTeamGoals', 'awayTeamId', 'awayTeamGoals'],
     private matchService = new MatchService(),
-    /* "homeTeamGoals":0,
-   "awayTeamGoals":8,
-   "awayTeamId":1,
-   "homeTeamId":2 */
   ) { }
-
-  // public async update(req: Request, res: Response) {
-  //   const { id: stringId } = req.params;
-  //   const id = Number(stringId);
-  //   const { homeTeamGoals, awayTeamGoals, inProgress = false } = req.body;
-  //   await this.matchService.update({
-  //     id, homeTeamGoals, awayTeamGoals, inProgress } as IMatch);
-  //   res.status(200).json({ message: 'Finished' });
-  // }
 
   public static validateCreateProps(body: any, matchProps:string[]):void {
     if (!matchProps.every((prop) => body[prop] !== undefined)) {
@@ -33,14 +20,12 @@ export default class MatchController {
     const { homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals } = req.body;
     const match = await this.matchService.create({
       homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals } as IMatch);
-    console.log('controler retornando 201 :'); console.log(match);
     res.status(201).json(match);
   }
 
   public async updateProgress(req: Request, res: Response) {
     const { id: stringId } = req.params;
     const id = Number(stringId);
-    // const { inProgress } = req.body;
     await this.matchService.updateProgress({
       id, inProgress: false } as IMatch);
     res.status(200).json({ message: 'Finished' });
@@ -51,7 +36,7 @@ export default class MatchController {
     const id = Number(stringId);
     const { homeTeamGoals, awayTeamGoals } = req.body;
     await this.matchService.updateGoals({ id, homeTeamGoals, awayTeamGoals } as IMatch);
-    res.status(200).json({ message: 'Finished' });
+    res.status(200).json({ message: 'Points updated' });
   }
 
   public async findAll(req: Request, res: Response) {
@@ -71,3 +56,12 @@ export default class MatchController {
     res.status(200).json(matches);
   }
 }
+
+// public async update(req: Request, res: Response) {
+//   const { id: stringId } = req.params;
+//   const id = Number(stringId);
+//   const { homeTeamGoals, awayTeamGoals, inProgress = false } = req.body;
+//   await this.matchService.update({
+//     id, homeTeamGoals, awayTeamGoals, inProgress } as IMatch);
+//   res.status(200).json({ message: 'Finished' });
+// }

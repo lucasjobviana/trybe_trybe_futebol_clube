@@ -1,6 +1,6 @@
 import * as sinon from 'sinon';
 import * as chai from 'chai';
-import { user,userWithCryptPassword  } from './mocks/user.mock'; 
+import { user, userWithCryptPassword  } from './mocks/user.mock'; 
 // @ts-ignore
 import chaiHttp = require('chai-http');
 
