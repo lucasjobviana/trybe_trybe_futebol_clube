@@ -8,11 +8,11 @@ class TeamDetails implements ITeamWithMatchesDetails {
   private _totalLosses = 0;//
   private _goalsFavor = 0;//
   private _goalsOwn = 0;//
-  private _efficiency = 0;
+  private _efficiency = '0';
   private _goalsBalance = 0;
 
-
   public get name():string { return this._name; }
+  public get id():number { return this._id; }
   public get totalPoints():number { return this._totalPoints; }
   public get totalGames():number { return this._totalGames; }
   public get totalVictories():number { return this._totalVictories; }
@@ -20,18 +20,25 @@ class TeamDetails implements ITeamWithMatchesDetails {
   public get totalLosses():number { return this._totalLosses; }
   public get goalsFavor():number { return this._goalsFavor; }
   public get goalsOwn():number { return this._goalsOwn; }
-  public get efficiency():number { return this._efficiency; }
+  public get efficiency():string { return this._efficiency; }
   public get goalsBalance():number { return this._goalsBalance; }
 
-  
-  private updateEfficiency = () => {
-    this._efficiency = Number((this.totalPoints/(this.totalGames*3) * 100).toFixed(2));
+  private static formatNumber(num: number): string {
+    const formattedNumber = num.toFixed(2);
+    return formattedNumber.includes('.')
+      ? formattedNumber
+      : `${formattedNumber}.00`;
   }
 
+  private updateEfficiency = () => {
+    this._efficiency = TeamDetails.formatNumber(((
+      this.totalPoints / (this.totalGames * 3)) * 100));
+  };
+
   private updateBalance = () => {
-    this._goalsBalance = this.goalsFavor - this.goalsOwn;
-  }
-  
+    this._goalsBalance = (this.goalsFavor - this.goalsOwn);
+  };
+
   private updateValues = (goalsOwn:number, goalsFavor:number) => {
     this._goalsFavor += goalsFavor;
     this._goalsOwn += goalsOwn;
@@ -40,29 +47,29 @@ class TeamDetails implements ITeamWithMatchesDetails {
     this.updateBalance();
   };
 
-  public win = (loseTeam:TeamDetails | null, goalsWinner:number, goalsLoser:number) => {
+  public win = (goalsWinner:number, goalsLoser:number) => {
     this._totalPoints += 3;
     this._totalVictories += 1;
     this.updateValues(goalsLoser, goalsWinner);
-    if (loseTeam) loseTeam.lose(goalsWinner, goalsLoser, null);
+    // if (loseTeam) loseTeam.lose(goalsWinner, goalsLoser, null);
   };
 
-  public lose = (goalsOwn:number, goalsFavor:number, winTeam:TeamDetails | null) => {
+  public lose = (goalsWinner:number, goalsLoser:number) => {
     this._totalLosses += 1;
-    this.updateValues(goalsOwn, goalsFavor);
-    if (winTeam) winTeam.win(null, goalsOwn, goalsFavor);
+    this.updateValues(goalsWinner, goalsLoser);
+    // if (winTeam) winTeam.win(null, goalsOwn, goalsFavor);
   };
 
-  public draw = (goals:number, oponentTeam:TeamDetails | null) => {
+  public draw = (goals:number) => {
     this._totalPoints += 1;
     this._totalDraws += 1;
     this.updateValues(goals, goals);
-    if (oponentTeam) oponentTeam.draw(goals, null);
+    // if (oponentTeam) oponentTeam.draw(goals, null);
   };
 
-  constructor(private _name:string) {
+  constructor(private _name:string, private _id:number) {
     this._name = _name;
-    console.log(_name);
+    this._id = _id;
   }
 }
 
