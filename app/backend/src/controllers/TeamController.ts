@@ -17,9 +17,13 @@ export default class TeamController {
     res.status(200).json(teams);
   }
 
-  public async findAllWithMatchesDetails(_req: Request, res: Response) {
-    console.log('find all with matches details');
-    const teams = await this.teamService.getAllWithMatchesDetails();
+  public async findAllHomeWithMatchesDetails(_req: Request, res: Response) {
+    const teams = await this.teamService.getAllHomeWithMatchesDetails();
+    res.status(200).json(teams);
+  }
+
+  public async findAllAwayWithMatchesDetails(_req: Request, res: Response) {
+    const teams = await this.teamService.getAllAwayWithMatchesDetails();
     res.status(200).json(teams);
   }
 }

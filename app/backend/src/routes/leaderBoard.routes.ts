@@ -6,7 +6,12 @@ const router = Router();
 
 router.get(
   '/home',
-  (req: Request, res: Response) => teamController.findAllWithMatchesDetails(req, res),
+  (req: Request, res: Response) => teamController.findAllHomeWithMatchesDetails(req, res),
+);
+
+router.get(
+  '/away',
+  (req: Request, res: Response) => teamController.findAllAwayWithMatchesDetails(req, res),
 );
 
 export default router;
