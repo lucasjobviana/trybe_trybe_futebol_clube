@@ -12,6 +12,15 @@ const matchFalse:IMatch = {
     inProgress: false,
 };
 
+const matchFalseAWAY:IMatch = {
+  id: 1,
+  homeTeamId: 2,
+  homeTeamGoals: 1,
+  awayTeamId: 1,
+  awayTeamGoals: 2,
+  inProgress: false,
+};
+
 const matchTrue:IMatch = {
   id: 2,
   homeTeamId: 2,
@@ -30,6 +39,18 @@ const matchFalseTEAM_Sequelize:TSequelizeMatchWithTeams = {
   awayTeam: {dataValues:{
     id: 2,
     teamName: 'Team 2',
+  }} as SequelizeTeamModel,
+};
+
+const matchFalseTEAMAWAY_Sequelize:TSequelizeMatchWithTeams = {
+  ...matchFalseAWAY,
+  homeTeam: {dataValues:{
+    id: 2,
+    teamName: 'Team 2',
+  }} as SequelizeTeamModel,
+  awayTeam: {dataValues:{
+    id: 1,
+    teamName: 'Team 1',
   }} as SequelizeTeamModel,
 };
 
@@ -56,7 +77,6 @@ const matchTrueTEAM = {
   homeTeam: {teamName: 'Team 2'},
   awayTeam: {teamName: 'Team 1'},
 }
- 
 
 const matches = [matchFalse];
 const matchesBothTEAM = [matchFalseTEAM,matchTrueTEAM];
@@ -65,15 +85,19 @@ const matchesFalseTEAM = [matchFalseTEAM];
 const matchesBothTEAM_Sequelize = [matchFalseTEAM_Sequelize,matchTrueTEAM_Sequelize];
 const matchesTrueTEAM_Sequelize = [matchTrueTEAM_Sequelize];
 const matchesFalseTEAM_Sequelize = [matchFalseTEAM_Sequelize];
+const matchesFalseTEAMAWAY_Sequelize = [matchFalseTEAMAWAY_Sequelize];
+
 //Both, True, False: InProgress
 //TEAM: Includes homeTeam and awayTeam objects
 //_Sequelize: Objects returned by Sequelize   
   export {
     matchTrue,
+    matches,
     matchesBothTEAM,
     matchesBothTEAM_Sequelize,
     matchesTrueTEAM,
     matchesTrueTEAM_Sequelize,
     matchesFalseTEAM,
     matchesFalseTEAM_Sequelize,
+    matchesFalseTEAMAWAY_Sequelize,
   };

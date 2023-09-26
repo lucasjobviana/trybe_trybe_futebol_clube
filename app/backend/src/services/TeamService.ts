@@ -140,7 +140,7 @@ export default class TeamService {
   }// getAllWithMatchesDetails
 
   public async getAllWithMatchesDetails(): Promise<ITeamWithMatchesDetails[]> {
-    const allTeams = await this.teamModel.findAll({ });
+    const allTeams = await this.teamModel.findAll({});
     const allMatches = await this.matchModel.findAll({ where: { inProgress: false } });
     const teamsDetails = TeamService.info(allTeams, allMatches);
     const ordenedTeams = TeamService.order(teamsDetails);
