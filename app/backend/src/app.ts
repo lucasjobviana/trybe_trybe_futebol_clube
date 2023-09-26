@@ -6,6 +6,7 @@ import userRouter from './routes/user.routes';
 import teamRouter from './routes/team.routes';
 import matchRouter from './routes/match.routes';
 import loginRouter from './routes/login.routes';
+import leaderBoardRouter from './routes/leaderBoard.routes';
 import AppResponseError from './AppResponseError';
 
 class App {
@@ -47,6 +48,7 @@ class App {
     this.app.use('/teams', teamRouter);
     this.app.use('/matches', matchRouter);
     this.app.use('/login', loginRouter);
+    this.app.use('/leaderboard', leaderBoardRouter);
   }
 
   public start(PORT: string | number): void {
