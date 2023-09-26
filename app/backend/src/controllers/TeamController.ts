@@ -26,4 +26,9 @@ export default class TeamController {
     const teams = await this.teamService.getAllAwayWithMatchesDetails();
     res.status(200).json(teams);
   }
+
+  public async findAllWithMatchesDetails(_req: Request, res: Response) {
+    const teams = await this.teamService.getAllWithMatchesDetails();
+    res.status(200).json(teams);
+  }
 }

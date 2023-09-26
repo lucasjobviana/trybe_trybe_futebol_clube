@@ -57,16 +57,29 @@ export default class TeamService {
       const currentTeam = new TeamDetails(team.teamName, team.id);
       const allCurrentTeamHome = allMatches.filter((match) =>
         match.homeTeamId === team.id);
-      // const allCurrentTeamAway = allMatches.filter((match) =>
-      //   match.awayTeamId === team.id);
 
-      allCurrentTeamHome.forEach((match) => { // quando time é home
+      allCurrentTeamHome.forEach((match) => {
         TeamService.resolvesMatch(currentTeam, match.awayTeamGoals, match.homeTeamGoals);
       });
 
-      // allCurrentTeamAway.forEach((match) => { // quando time é away
-      //   TeamService.resolvesMatch(currentTeam, match.homeTeamGoals, match.awayTeamGoals);
-      // });
+      r.push(TeamService.convertToITeamWithMatchesDetails(currentTeam));
+    });
+    return r;
+  }
+
+  private static info(aTeams:ITeams[], aMatches: IMatch[], r: ITeamWithMatchesDetails[] = []) {
+    aTeams.forEach((team) => {
+      const currentTeam = new TeamDetails(team.teamName, team.id);
+      const allCurrentTeamHome = aMatches.filter((match) =>
+        match.homeTeamId === team.id);
+      const allCurrentTeamAway = aMatches.filter((match) =>
+        match.awayTeamId === team.id);
+      allCurrentTeamHome.forEach((match) => { // quando time é home
+        TeamService.resolvesMatch(currentTeam, match.awayTeamGoals, match.homeTeamGoals);
+      });
+      allCurrentTeamAway.forEach((match) => { // quando time é away
+        TeamService.resolvesMatch(currentTeam, match.homeTeamGoals, match.awayTeamGoals);
+      });
 
       r.push(TeamService.convertToITeamWithMatchesDetails(currentTeam));
     });
@@ -80,14 +93,8 @@ export default class TeamService {
   ) {
     allTeams.forEach((team) => {
       const currentTeam = new TeamDetails(team.teamName, team.id);
-      // const allCurrentTeamHome = allMatches.filter((match) =>
-      //   match.homeTeamId === team.id);
       const allCurrentTeamAway = allMatches.filter((match) =>
         match.awayTeamId === team.id);
-
-      // allCurrentTeamHome.forEach((match) => { // quando time é home
-      //   TeamService.resolvesMatch(currentTeam, match.awayTeamGoals, match.homeTeamGoals);
-      // });
 
       allCurrentTeamAway.forEach((match) => { // quando time é away
         TeamService.resolvesMatch(currentTeam, match.homeTeamGoals, match.awayTeamGoals);
@@ -128,6 +135,14 @@ export default class TeamService {
     const allTeams = await this.teamModel.findAll({ });
     const allMatches = await this.matchModel.findAll({ where: { inProgress: false } });
     const teamsDetails = TeamService.infoAway(allTeams, allMatches);
+    const ordenedTeams = TeamService.order(teamsDetails);
+    return ordenedTeams;
+  }// getAllWithMatchesDetails
+
+  public async getAllWithMatchesDetails(): Promise<ITeamWithMatchesDetails[]> {
+    const allTeams = await this.teamModel.findAll({ });
+    const allMatches = await this.matchModel.findAll({ where: { inProgress: false } });
+    const teamsDetails = TeamService.info(allTeams, allMatches);
     const ordenedTeams = TeamService.order(teamsDetails);
     return ordenedTeams;
   }

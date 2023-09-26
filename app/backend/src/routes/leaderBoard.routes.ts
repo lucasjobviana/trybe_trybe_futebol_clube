@@ -5,6 +5,11 @@ const teamController = new TeamController();
 const router = Router();
 
 router.get(
+  '/',
+  (req: Request, res: Response) => teamController.findAllWithMatchesDetails(req, res),
+);
+
+router.get(
   '/home',
   (req: Request, res: Response) => teamController.findAllHomeWithMatchesDetails(req, res),
 );
